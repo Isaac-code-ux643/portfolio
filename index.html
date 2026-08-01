@@ -3,73 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio — Ingenieur Informatique</title>
+    <title>KINDO Dary Isaac Hussein — Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
+        /* ============================================================
+           FONDATION — Design guidelines centralisees a la racine.
+           Tout style doit reutiliser ces tokens : jamais de valeur
+           brute dans les composants.
+           ============================================================ */
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --primary: #8b5cf6;
-            --primary-light: #a78bfa;
-            --primary-dark: #7c3aed;
+            /* --- Couleurs --- */
+            --primary: #1d4ed8;
+            --primary-light: #3b82f6;
+            --primary-dark: #1e3a8a;
             --accent: #f43f5e;
-            --accent-light: #fb7185;
-            --cyan: #22d3ee;
-            --lime: #a3e635;
-            --orange: #fb923c;
-            --dark: #0a0a14;
-            --dark2: #10102a;
-            --dark3: #181838;
-            --card: #141430;
-            --card-hover: #1c1c48;
-            --text: #f0f0ff;
-            --text-muted: #a0a0c8;
-            --text-dim: #6868a0;
-            --border: #2e2e60;
-            --glow-purple: rgba(139, 92, 246, 0.4);
-            --glow-pink: rgba(244, 63, 94, 0.4);
-            --glow-cyan: rgba(34, 211, 238, 0.3);
-            --gradient1: linear-gradient(135deg, #8b5cf6, #f43f5e);
-            --gradient2: linear-gradient(135deg, #0a0a14, #1a1050, #0a0a14);
-            --gradient3: linear-gradient(135deg, #8b5cf6, #22d3ee, #f43f5e);
-            --gradient4: linear-gradient(135deg, #f43f5e, #fb923c);
+            --cyan: #06b6d4;
+            --success: #22c55e;
+            --warning: #f97316;
+            --dark: #1e293b;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --text-dim: #94a3b8;
+            --bg: #ffffff;
+            --bg-alt: #f8fafc;
+            --card: #ffffff;
+            --border: #e2e8f0;
+            --border-light: #f1f5f9;
+
+            /* --- Teintes d'icones (surfaces plates) --- */
+            --tint-blue: rgba(29, 78, 216, 0.08);
+            --tint-rose: rgba(244, 63, 94, 0.08);
+            --tint-cyan: rgba(6, 182, 212, 0.08);
+            --tint-green: rgba(34, 197, 94, 0.08);
+            --tint-orange: rgba(249, 115, 22, 0.08);
+            --tint-primary: rgba(29, 78, 216, 0.06);
+
+            /* --- Typographie --- */
+            --font-sans: 'Inter', -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            /* --- Espacements --- */
+            --space-1: 0.25rem;
+            --space-2: 0.5rem;
+            --space-3: 0.75rem;
+            --space-4: 1rem;
+            --space-5: 1.5rem;
+            --space-6: 2rem;
+            --space-8: 3rem;
+            --space-10: 4rem;
+            --space-12: 6rem;
+
+            /* --- Rayons --- */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --radius-full: 50px;
+
+            /* --- Ombres --- */
+            --shadow-1: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-2: 0 4px 16px rgba(0, 0, 0, 0.06);
+            --shadow-3: 0 10px 40px rgba(0, 0, 0, 0.08);
+            --shadow-primary: 0 4px 16px rgba(29, 78, 216, 0.25);
+            --shadow-primary-lg: 0 8px 24px rgba(29, 78, 216, 0.35);
+
+            /* --- Degrades (accents uniquement) --- */
+            --gradient-1: linear-gradient(135deg, var(--primary), var(--primary-light));
+            --gradient-2: linear-gradient(135deg, var(--primary), var(--cyan));
+            --gradient-3: linear-gradient(135deg, var(--primary-dark), var(--primary), var(--primary-light));
+
+            /* --- Conteneur --- */
+            --container: 1100px;
         }
 
         html { scroll-behavior: smooth; font-size: 16px; }
 
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background: var(--dark);
+            font-family: var(--font-sans);
+            background: var(--bg);
             color: var(--text);
             overflow-x: hidden;
             line-height: 1.6;
         }
 
-        ::selection { background: var(--accent); color: #fff; }
+        ::selection { background: var(--primary); color: #fff; }
 
-        /* ===== NAVIGATION ===== */
+        section[id] { scroll-margin-top: 90px; }
+
+        /* ============================================================
+           UTILITAIRE ICONE — toutes les icones sont des SVG lineaires
+           (type Lucide), une seule classe, zero emoji brut.
+           ============================================================ */
+        .icon { flex-shrink: 0; stroke: currentColor; }
+        .icon--sm { width: 14px; height: 14px; }
+        .icon--md { width: 24px; height: 24px; }
+
+        /* ============================================================
+           COMPOSANT NAVIGATION
+           ============================================================ */
         nav {
             position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-            padding: 1rem 2rem;
+            padding: var(--space-4) var(--space-6);
             display: flex; justify-content: space-between; align-items: center;
-            transition: all 0.3s ease; background: transparent;
+            transition: all 0.3s ease; background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
         }
 
         nav.scrolled {
-            background: rgba(10, 10, 20, 0.95);
-            backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
-            padding: 0.7rem 2rem;
+            box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
         }
 
         .nav-logo {
-            font-size: 1.4rem; font-weight: 800;
-            background: var(--gradient1);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-size: 1.1rem; font-weight: 800;
+            color: var(--primary-dark);
+            letter-spacing: -0.5px;
         }
 
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-logo span { color: var(--accent); }
+
+        .nav-links { display: flex; gap: var(--space-6); list-style: none; }
 
         .nav-links a {
             color: var(--text-muted); text-decoration: none;
@@ -80,63 +136,90 @@
         .nav-links a::after {
             content: ''; position: absolute; bottom: -4px; left: 0;
             width: 0; height: 2px;
-            background: var(--gradient1); transition: width 0.3s;
+            background: var(--gradient-1); transition: width 0.3s;
         }
 
-        .nav-links a:hover { color: var(--text); }
+        .nav-links a:hover { color: var(--primary); }
         .nav-links a:hover::after { width: 100%; }
 
-        /* ===== HERO ===== */
+        .nav-menu {
+            display: none; background: none; border: none; cursor: pointer;
+            padding: var(--space-2); border-radius: var(--radius-sm);
+            transition: background 0.3s; color: var(--text);
+        }
+        .nav-menu:hover { background: var(--border-light); }
+
+        /* ============================================================
+           COMPOSANT BOUTON
+           ============================================================ */
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.85rem var(--space-6); border-radius: var(--radius-md);
+            font-size: 0.95rem; font-weight: 600; text-decoration: none;
+            cursor: pointer; border: none; font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .btn--primary {
+            background: var(--gradient-1); color: #fff;
+            box-shadow: var(--shadow-primary);
+        }
+
+        .btn--primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-primary-lg);
+        }
+
+        .btn--outline {
+            background: var(--bg); color: var(--text); border: 1.5px solid var(--border);
+        }
+
+        .btn--outline:hover {
+            border-color: var(--primary); color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .btn--sm { padding: 0.6rem 1.2rem; border-radius: var(--radius-sm); font-size: 0.85rem; font-weight: 500; }
+
+        /* ============================================================
+           COMPOSANT HERO
+           ============================================================ */
         .hero {
             min-height: 100vh; display: flex; align-items: center; justify-content: center;
             position: relative; overflow: hidden;
+            background: var(--bg);
         }
 
-        .hero-bg {
-            position: absolute; inset: 0; background: var(--gradient2);
-        }
+        .hero-bg { position: absolute; inset: 0; }
 
         .hero-bg::before {
-            content: ''; position: absolute; top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background:
-                radial-gradient(circle at 25% 35%, rgba(139, 92, 246, 0.15) 0%, transparent 45%),
-                radial-gradient(circle at 75% 55%, rgba(244, 63, 94, 0.12) 0%, transparent 45%),
-                radial-gradient(circle at 50% 80%, rgba(34, 211, 238, 0.08) 0%, transparent 40%);
-            animation: floatBg 20s ease-in-out infinite;
+            content: ''; position: absolute; top: -30%; right: -20%;
+            width: 600px; height: 600px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(29, 78, 216, 0.06) 0%, transparent 70%);
         }
 
-        @keyframes floatBg {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(2%, -2%) rotate(1deg); }
-            66% { transform: translate(-1%, 1%) rotate(-0.5deg); }
-        }
-
-        .hero-grid {
-            position: absolute; inset: 0;
-            background-image:
-                linear-gradient(rgba(139, 92, 246, 0.06) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(139, 92, 246, 0.06) 1px, transparent 1px);
-            background-size: 60px 60px;
+        .hero-bg::after {
+            content: ''; position: absolute; bottom: -20%; left: -10%;
+            width: 500px; height: 500px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(244, 63, 94, 0.04) 0%, transparent 70%);
         }
 
         .hero-content {
             position: relative; z-index: 2; text-align: center;
-            max-width: 900px; padding: 2rem;
+            max-width: 800px; padding: var(--space-6);
         }
 
         .hero-badge {
             display: inline-flex; align-items: center; gap: 0.5rem;
             padding: 0.5rem 1.2rem; border: 1px solid var(--border);
-            border-radius: 50px; font-size: 0.85rem; color: var(--text-muted);
-            margin-bottom: 2rem;
-            background: rgba(20, 20, 48, 0.6); backdrop-filter: blur(10px);
+            border-radius: var(--radius-full); font-size: 0.85rem; color: var(--text-muted);
+            margin-bottom: var(--space-6); background: var(--bg-alt);
             animation: fadeInUp 0.8s ease forwards;
         }
 
         .hero-badge .dot {
             width: 8px; height: 8px; border-radius: 50%;
-            background: #22c55e; animation: pulse 2s ease-in-out infinite;
+            background: var(--success); animation: pulse 2s ease-in-out infinite;
         }
 
         @keyframes pulse {
@@ -145,13 +228,14 @@
         }
 
         .hero h1 {
-            font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 900;
-            line-height: 1.05; letter-spacing: -2px; margin-bottom: 1.5rem;
+            font-size: clamp(2.5rem, 5.5vw, 4.2rem); font-weight: 900;
+            line-height: 1.1; letter-spacing: -2px; margin-bottom: var(--space-5);
             animation: fadeInUp 0.8s ease 0.1s forwards; opacity: 0;
         }
 
-        .hero h1 .gradient {
-            background: var(--gradient3); -webkit-background-clip: text;
+        .hero h1 .name {
+            display: block;
+            background: var(--gradient-2); -webkit-background-clip: text;
             -webkit-text-fill-color: transparent; background-size: 200% 200%;
             animation: gradientShift 5s ease infinite;
         }
@@ -163,47 +247,21 @@
 
         .hero p {
             font-size: 1.15rem; color: var(--text-muted);
-            max-width: 600px; margin: 0 auto 2.5rem;
+            max-width: 550px; margin: 0 auto 2.5rem;
             animation: fadeInUp 0.8s ease 0.2s forwards; opacity: 0;
         }
 
         .hero-buttons {
-            display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+            display: flex; gap: var(--space-4); justify-content: center; flex-wrap: wrap;
             animation: fadeInUp 0.8s ease 0.3s forwards; opacity: 0;
         }
 
-        .btn {
-            padding: 0.85rem 2rem; border-radius: 12px; font-size: 0.95rem;
-            font-weight: 600; text-decoration: none; transition: all 0.3s ease;
-            cursor: pointer; border: none; font-family: inherit;
-        }
-
-        .btn-primary {
-            background: var(--gradient1); color: #fff;
-            box-shadow: 0 4px 24px var(--glow-purple);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 40px var(--glow-purple);
-        }
-
-        .btn-outline {
-            background: transparent; color: var(--text); border: 1px solid var(--border);
-        }
-
-        .btn-outline:hover {
-            border-color: var(--accent); background: rgba(244, 63, 94, 0.1);
-            transform: translateY(-2px);
-        }
-
         .hero-scroll {
-            position: absolute; bottom: 2rem; left: 50%;
+            position: absolute; bottom: var(--space-6); left: 50%;
             transform: translateX(-50%);
+            color: var(--text-dim);
             animation: bounce 2s ease-in-out infinite;
         }
-
-        .hero-scroll svg { width: 24px; height: 24px; stroke: var(--accent-light); }
 
         @keyframes bounce {
             0%, 100% { transform: translateX(-50%) translateY(0); }
@@ -215,20 +273,22 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ===== SECTIONS ===== */
-        section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
+        /* ============================================================
+           SECTIONS + EN-TETE DE SECTION
+           ============================================================ */
+        section { padding: var(--space-12) var(--space-6); max-width: var(--container); margin: 0 auto; }
 
-        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-header { text-align: center; margin-bottom: var(--space-10); }
 
         .section-tag {
             display: inline-block; font-size: 0.8rem; font-weight: 700;
             text-transform: uppercase; letter-spacing: 3px;
-            color: var(--accent-light); margin-bottom: 0.8rem;
+            color: var(--primary); margin-bottom: 0.8rem;
         }
 
         .section-title {
             font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 800;
-            letter-spacing: -1px; margin-bottom: 1rem;
+            letter-spacing: -1px; margin-bottom: var(--space-4); color: var(--dark);
         }
 
         .section-subtitle {
@@ -236,296 +296,242 @@
             max-width: 600px; margin: 0 auto;
         }
 
-        /* ===== ABOUT ===== */
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-
-        .about-card {
-            background: var(--card); border: 1px solid var(--border);
-            border-radius: 20px; padding: 2.5rem;
-            position: relative; overflow: hidden;
-            box-shadow: 0 0 60px rgba(139, 92, 246, 0.06);
+        /* ============================================================
+           COMPOSANT CARTE (reutilise partout)
+           ============================================================ */
+        .card {
+            background: var(--bg-alt); border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         }
 
-        .about-card::before {
+        .card--interactive:hover {
+            transform: translateY(-4px); box-shadow: var(--shadow-3);
+            border-color: var(--primary-light);
+        }
+
+        .card--accent { position: relative; overflow: hidden; }
+
+        .card--accent::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0;
-            height: 3px; background: var(--gradient1);
+            height: 3px; background: var(--gradient-1);
         }
 
-        .about-card::after {
-            content: ''; position: absolute; top: -50%; right: -50%;
-            width: 100%; height: 100%;
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.08), transparent 70%);
+        /* ============================================================
+           COMPOSANT ICONE + COMPOSANT CHIP
+           ============================================================ */
+        .icon-box {
+            --tint: var(--tint-blue); --tint-fg: var(--primary);
+            width: 50px; height: 50px; border-radius: var(--radius-md);
+            background: var(--tint); color: var(--tint-fg);
+            display: inline-flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
         }
+
+        .icon-box--lg { width: 56px; height: 56px; border-radius: var(--radius-lg); margin-bottom: var(--space-4); }
+        .icon-box--blue { --tint: var(--tint-blue); --tint-fg: var(--primary); }
+        .icon-box--rose { --tint: var(--tint-rose); --tint-fg: var(--accent); }
+        .icon-box--cyan { --tint: var(--tint-cyan); --tint-fg: var(--cyan); }
+        .icon-box--green { --tint: var(--tint-green); --tint-fg: var(--success); }
+        .icon-box--orange { --tint: var(--tint-orange); --tint-fg: var(--warning); }
+
+        .chip {
+            display: inline-flex; align-items: center;
+            padding: 0.3rem 0.8rem; border-radius: var(--radius-sm);
+            font-size: 0.78rem; font-weight: 600; transition: all 0.3s;
+        }
+
+        .chip--outline {
+            background: var(--bg); border: 1px solid var(--border);
+            color: var(--text-muted); font-family: var(--font-mono); font-weight: 500;
+        }
+
+        .chip--outline:hover { border-color: var(--primary); color: var(--primary); }
+
+        .chip--tint {
+            background: var(--tint-primary); border: 1px solid rgba(29, 78, 216, 0.15);
+            color: var(--primary); font-family: var(--font-mono); font-weight: 500;
+        }
+
+        .chip--tint:hover { border-color: var(--primary); }
+
+        /* ============================================================
+           ABOUT
+           ============================================================ */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-10); align-items: center; }
+
+        .about-card { padding: 2.5rem; }
 
         .about-avatar {
-            width: 80px; height: 80px; border-radius: 16px;
-            background: var(--gradient1); display: flex; align-items: center;
-            justify-content: center; font-size: 2rem; font-weight: 800;
-            color: #fff; margin-bottom: 1.5rem;
-            box-shadow: 0 4px 20px var(--glow-purple);
+            width: 80px; height: 80px; border-radius: var(--radius-lg);
+            background: var(--gradient-1); display: flex; align-items: center;
+            justify-content: center; font-size: 1.6rem; font-weight: 800;
+            color: #fff; margin-bottom: var(--space-5);
+            box-shadow: var(--shadow-primary);
         }
 
-        .about-name { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.3rem; }
+        .about-name { font-size: 1.3rem; font-weight: 700; color: var(--dark); margin-bottom: 0.3rem; }
 
         .about-role {
-            color: var(--accent-light); font-size: 0.9rem;
-            font-weight: 600; margin-bottom: 1.5rem;
+            color: var(--primary); font-size: 0.9rem;
+            font-weight: 600; margin-bottom: var(--space-5);
         }
 
         .about-stats {
             display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 1rem; padding-top: 1.5rem; border-top: 1px solid var(--border);
+            gap: var(--space-4); padding-top: var(--space-5); border-top: 1px solid var(--border);
         }
 
         .stat-item { text-align: center; }
 
         .stat-number {
             font-size: 1.6rem; font-weight: 800;
-            background: var(--gradient1); -webkit-background-clip: text;
+            background: var(--gradient-1); -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .stat-label { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem; }
 
-        .about-text h3 { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 1rem; }
-        .about-text p { color: var(--text-muted); line-height: 1.8; margin-bottom: 1.5rem; }
+        .about-text h3 { font-size: 1.8rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: var(--space-4); color: var(--dark); }
+        .about-text p { color: var(--text-muted); line-height: 1.8; margin-bottom: var(--space-5); }
 
         .about-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 
-        .about-tag {
-            padding: 0.4rem 0.9rem;
-            background: rgba(139, 92, 246, 0.12); border: 1px solid rgba(139, 92, 246, 0.3);
-            border-radius: 8px; font-size: 0.8rem; color: var(--primary-light); font-weight: 600;
-        }
+        /* ============================================================
+           SKILLS
+           ============================================================ */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-5); }
 
-        /* ===== SKILLS ===== */
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .skill-category { padding: var(--space-6); }
 
-        .skill-category {
-            background: var(--card); border: 1px solid var(--border);
-            border-radius: 16px; padding: 2rem; transition: all 0.3s ease;
-        }
-
-        .skill-category:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px var(--glow-purple);
-            border-color: var(--primary);
-        }
-
-        .skill-icon {
-            width: 50px; height: 50px; border-radius: 14px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.3rem; margin-bottom: 1.2rem;
-        }
-
-        .skill-icon.purple { background: rgba(139, 92, 246, 0.2); }
-        .skill-icon.pink { background: rgba(244, 63, 94, 0.2); }
-        .skill-icon.cyan { background: rgba(34, 211, 238, 0.2); }
-        .skill-icon.lime { background: rgba(163, 230, 53, 0.2); }
-        .skill-icon.orange { background: rgba(251, 146, 60, 0.2); }
-
-        .skill-category h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.8rem; }
+        .skill-category h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.8rem; color: var(--dark); }
 
         .skill-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 
-        .skill-chip {
-            padding: 0.3rem 0.7rem; background: rgba(255, 255, 255, 0.06);
-            border: 1px solid var(--border); border-radius: 6px;
-            font-size: 0.78rem; color: var(--text-muted);
-            font-family: 'JetBrains Mono', monospace;
-            transition: all 0.3s;
-        }
-
-        .skill-chip:hover { border-color: var(--primary); color: var(--primary-light); }
-
-        /* ===== PROJECTS ===== */
-        .projects-grid { display: grid; gap: 2rem; }
+        /* ============================================================
+           PROJETS
+           ============================================================ */
+        .projects-grid { display: grid; gap: var(--space-6); }
 
         .project-card {
-            background: var(--card); border: 1px solid var(--border);
-            border-radius: 20px; padding: 2.5rem; transition: all 0.4s ease;
-            position: relative; overflow: hidden;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+            padding: 2.5rem;
+            display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); align-items: center;
         }
 
         .project-card::before {
             content: ''; position: absolute; top: 0; left: 0; right: 0;
-            height: 3px; background: var(--gradient1); opacity: 0;
+            height: 3px; background: var(--gradient-1); opacity: 0;
             transition: opacity 0.3s;
         }
 
         .project-card:hover::before { opacity: 1; }
 
-        .project-card:hover {
-            border-color: var(--primary); transform: translateY(-4px);
-            box-shadow: 0 20px 60px rgba(139, 92, 246, 0.12);
-        }
-
         .project-card:nth-child(even) { direction: rtl; }
         .project-card:nth-child(even) > * { direction: ltr; }
 
         .project-number {
-            font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
-            color: var(--accent-light); font-weight: 600;
+            font-family: var(--font-mono); font-size: 0.8rem;
+            color: var(--accent); font-weight: 600;
             margin-bottom: 0.8rem; letter-spacing: 1px;
         }
 
-        .project-card h3 { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 0.8rem; }
+        .project-card h3 { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 0.8rem; color: var(--dark); }
 
         .project-card .tagline {
-            color: var(--cyan); font-size: 0.9rem; font-weight: 600; margin-bottom: 1rem;
+            color: var(--primary); font-size: 0.9rem; font-weight: 600; margin-bottom: var(--space-4);
         }
 
-        .project-card p { color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem; }
+        .project-card p { color: var(--text-muted); line-height: 1.7; margin-bottom: var(--space-5); }
 
-        .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+        .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: var(--space-5); }
 
-        .project-stack span {
-            padding: 0.3rem 0.8rem;
-            background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.25);
-            border-radius: 6px; font-size: 0.75rem; color: var(--accent-light);
-            font-family: 'JetBrains Mono', monospace;
-        }
+        .project-links { display: flex; gap: 0.8rem; flex-wrap: wrap; }
 
-        .project-links { display: flex; gap: 0.8rem; }
-
-        .project-links a {
-            padding: 0.6rem 1.2rem; border-radius: 8px; font-size: 0.85rem;
-            font-weight: 500; text-decoration: none; transition: all 0.3s;
-            display: inline-flex; align-items: center; gap: 0.4rem;
-        }
-
-        .project-links .link-primary {
-            background: var(--gradient1); color: #fff;
-        }
-
-        .project-links .link-primary:hover {
-            box-shadow: 0 4px 20px var(--glow-pink); transform: translateY(-1px);
-        }
-
-        .project-links .link-secondary {
-            border: 1px solid var(--border); color: var(--text-muted);
-        }
-
-        .project-links .link-secondary:hover {
-            border-color: var(--cyan); color: var(--cyan);
-        }
-
-        .project-preview {
-            background: var(--dark3); border: 1px solid var(--border);
-            border-radius: 12px; padding: 1.5rem; min-height: 200px;
+        .window {
+            background: var(--dark); border: 1px solid #334155;
+            border-radius: var(--radius-md); padding: var(--space-5); min-height: 200px;
             display: flex; flex-direction: column; justify-content: center;
             align-items: center; position: relative;
         }
 
-        .preview-dots { display: flex; gap: 6px; position: absolute; top: 12px; left: 14px; }
-        .preview-dots span { width: 8px; height: 8px; border-radius: 50%; }
-        .preview-dots span:nth-child(1) { background: #ef4444; }
-        .preview-dots span:nth-child(2) { background: #eab308; }
-        .preview-dots span:nth-child(3) { background: #22c55e; }
+        .window__bar { display: flex; gap: 6px; position: absolute; top: 12px; left: 14px; }
+        .window__dot { width: 8px; height: 8px; border-radius: 50%; }
+        .window__dot--red { background: #ef4444; }
+        .window__dot--amber { background: #eab308; }
+        .window__dot--green { background: var(--success); }
 
-        .preview-url {
-            font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
-            color: var(--text-dim); margin-bottom: 1.5rem;
+        .window__url {
+            font-family: var(--font-mono); font-size: 0.7rem;
+            color: var(--text-dim); margin-bottom: var(--space-5);
         }
 
-        .preview-content { text-align: center; }
+        .window__content { text-align: center; }
 
-        .preview-logo { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .window__logo { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
 
-        .preview-tagline { font-size: 0.8rem; color: var(--text-muted); }
+        .window__tagline { font-size: 0.8rem; color: var(--text-dim); }
 
-        .preview-lines { margin-top: 1.5rem; width: 100%; }
+        .window__lines { margin-top: var(--space-5); width: 100%; }
 
-        .preview-line { height: 6px; border-radius: 3px; margin-bottom: 6px; opacity: 0.4; }
-        .preview-line:nth-child(1) { width: 80%; background: var(--primary); }
-        .preview-line:nth-child(2) { width: 60%; background: var(--accent); }
-        .preview-line:nth-child(3) { width: 70%; background: var(--cyan); }
+        .window__line { height: 6px; border-radius: 3px; margin-bottom: 6px; opacity: 0.4; }
+        .window__line:nth-child(1) { width: 80%; background: var(--primary); }
+        .window__line:nth-child(2) { width: 60%; background: var(--accent); }
+        .window__line:nth-child(3) { width: 70%; background: var(--cyan); }
 
-        /* ===== DOMAINES ===== */
+        /* ============================================================
+           DOMAINES
+           ============================================================ */
         .domains-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 1.2rem;
         }
 
-        .domain-card {
-            background: var(--card); border: 1px solid var(--border);
-            border-radius: 16px; padding: 2rem; text-align: center;
-            transition: all 0.3s ease; cursor: default; position: relative; overflow: hidden;
-        }
+        .domain-card { padding: var(--space-6); text-align: center; }
 
-        .domain-card::before {
-            content: ''; position: absolute; inset: 0;
-            background: radial-gradient(circle at center, rgba(139, 92, 246, 0.06), transparent 70%);
-            opacity: 0; transition: opacity 0.3s;
-        }
+        .domain-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--dark); }
+        .domain-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
 
-        .domain-card:hover::before { opacity: 1; }
-
-        .domain-card:hover {
-            border-color: var(--accent); transform: translateY(-4px);
-            box-shadow: 0 8px 30px var(--glow-pink);
-        }
-
-        .domain-emoji { font-size: 2.2rem; margin-bottom: 1rem; position: relative; }
-
-        .domain-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; position: relative; }
-        .domain-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; position: relative; }
-
-        /* ===== CONTACT ===== */
+        /* ============================================================
+           CONTACT
+           ============================================================ */
         .contact-section { text-align: center; }
 
-        .contact-box {
-            background: var(--card); border: 1px solid var(--border);
-            border-radius: 20px; padding: 3.5rem; max-width: 700px;
-            margin: 0 auto; position: relative; overflow: hidden;
-            box-shadow: 0 0 80px rgba(244, 63, 94, 0.06);
-        }
+        .contact-box { padding: 3.5rem; max-width: 700px; margin: 0 auto; }
 
-        .contact-box::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0;
-            height: 3px; background: var(--gradient4);
-        }
-
-        .contact-box::after {
-            content: ''; position: absolute; bottom: -50%; left: -20%;
-            width: 140%; height: 100%;
-            background: radial-gradient(circle, rgba(244, 63, 94, 0.06), transparent 70%);
-        }
-
-        .contact-box h2 { font-size: 2rem; font-weight: 800; margin-bottom: 1rem; position: relative; }
-        .contact-box p { color: var(--text-muted); margin-bottom: 2rem; font-size: 1.05rem; position: relative; }
+        .contact-box h2 { font-size: 2rem; font-weight: 800; margin-bottom: var(--space-4); color: var(--dark); position: relative; }
+        .contact-box p { color: var(--text-muted); margin-bottom: var(--space-6); font-size: 1.05rem; position: relative; }
 
         .contact-links {
-            display: flex; justify-content: center; gap: 1rem;
+            display: flex; justify-content: center; gap: var(--space-4);
             flex-wrap: wrap; position: relative;
         }
 
         .contact-link {
             display: inline-flex; align-items: center; gap: 0.6rem;
-            padding: 0.8rem 1.5rem; border: 1px solid var(--border);
-            border-radius: 12px; color: var(--text); text-decoration: none;
+            padding: 0.8rem 1.5rem; border: 1.5px solid var(--border);
+            border-radius: var(--radius-md); color: var(--text); text-decoration: none;
             font-size: 0.9rem; font-weight: 500; transition: all 0.3s;
-            background: rgba(255, 255, 255, 0.03);
+            background: var(--bg);
         }
 
         .contact-link:hover {
-            border-color: var(--accent); background: rgba(244, 63, 94, 0.1);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px var(--glow-pink);
+            border-color: var(--primary); color: var(--primary);
+            transform: translateY(-2px); box-shadow: var(--shadow-2);
         }
 
-        .contact-link svg { width: 18px; height: 18px; flex-shrink: 0; }
-
-        /* ===== FOOTER ===== */
+        /* ============================================================
+           FOOTER
+           ============================================================ */
         footer {
-            text-align: center; padding: 2rem; border-top: 1px solid var(--border);
+            text-align: center; padding: var(--space-6); border-top: 1px solid var(--border);
             color: var(--text-dim); font-size: 0.85rem;
         }
 
-        footer .heart { color: var(--accent); }
+        footer .heart { color: var(--accent); display: inline-flex; vertical-align: middle; margin: 0 0.2rem; }
 
-        /* ===== SCROLL ANIMATIONS ===== */
+        /* ============================================================
+           ANIMATIONS DE DEFILEMENT
+           ============================================================ */
         .reveal {
             opacity: 0; transform: translateY(30px);
             transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
@@ -533,14 +539,27 @@
 
         .reveal.visible { opacity: 1; transform: translateY(0); }
 
-        /* ===== RESPONSIVE ===== */
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
         @media (max-width: 768px) {
             .nav-links { display: none; }
-            .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-            .project-card { grid-template-columns: 1fr; gap: 1.5rem; }
+            .nav-menu { display: block; }
+
+            .nav-links.open {
+                display: flex; flex-direction: column;
+                position: absolute; top: 100%; left: 0; right: 0;
+                background: var(--bg); border-bottom: 1px solid var(--border);
+                padding: var(--space-4) var(--space-6); gap: 0.5rem; box-shadow: var(--shadow-2);
+            }
+
+            .nav-links.open a { padding: 0.7rem 0; }
+
+            .about-grid { grid-template-columns: 1fr; gap: var(--space-6); }
+            .project-card { grid-template-columns: 1fr; gap: var(--space-5); }
             .project-card:nth-child(even) { direction: ltr; }
             .hero h1 { letter-spacing: -1px; }
-            section { padding: 4rem 1.2rem; }
+            section { padding: var(--space-10) 1.2rem; }
         }
     </style>
 </head>
@@ -548,35 +567,39 @@
 
     <!-- NAVIGATION -->
     <nav id="navbar">
-        <div class="nav-logo">&lt;dev/&gt;</div>
-        <ul class="nav-links">
+        <div class="nav-logo">KINDO<span>.</span></div>
+        <ul class="nav-links" id="navLinks">
             <li><a href="#about">A propos</a></li>
             <li><a href="#skills">Competences</a></li>
             <li><a href="#projects">Projets</a></li>
             <li><a href="#domains">Domaines</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
+        <button class="nav-menu" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">
+            <svg class="icon icon--md" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
     </nav>
 
     <!-- HERO -->
     <section class="hero" id="hero">
-        <div class="hero-bg"><div class="hero-grid"></div></div>
+        <div class="hero-bg"></div>
         <div class="hero-content">
             <div class="hero-badge">
                 <span class="dot"></span>
                 Disponible pour de nouveaux projets
             </div>
-            <h1>Je construis des<br><span class="gradient">solutions numeriques</span><br>d'impact</h1>
-            <p>Jeune ingenieur informatique burkinabe, specialise dans le developpement web, la data science et les solutions a impact social.</p>
+            <h1>
+                <span class="name">KINDO Dary Isaac Hussein</span>
+                Ingenieur Informatique
+            </h1>
+            <p>Specialise dans le developpement web, la data science et les solutions numeriques a impact social au Burkina Faso.</p>
             <div class="hero-buttons">
-                <a href="#projects" class="btn btn-primary">Voir mes projets</a>
-                <a href="#contact" class="btn btn-outline">Me contacter</a>
+                <a href="#projects" class="btn btn--primary">Voir mes projets</a>
+                <a href="#contact" class="btn btn--outline">Me contacter</a>
             </div>
         </div>
         <div class="hero-scroll">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
-                <path d="M12 5v14M19 12l-7 7-7-7"/>
-            </svg>
+            <svg class="icon icon--md" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
         </div>
     </section>
 
@@ -584,17 +607,17 @@
     <section id="about">
         <div class="about-grid">
             <div class="about-visual reveal">
-                <div class="about-card">
-                    <div class="about-avatar">DI</div>
-                    <div class="about-name">Developpeur & Ingenieur</div>
-                    <div class="about-role">Burkina Faso</div>
+                <div class="card card--accent about-card">
+                    <div class="about-avatar">KD</div>
+                    <div class="about-name">KINDO Dary Isaac Hussein</div>
+                    <div class="about-role">Ingenieur Informatique — Burkina Faso</div>
                     <div class="about-stats">
                         <div class="stat-item">
-                            <div class="stat-number">3+</div>
+                            <div class="stat-number">4+</div>
                             <div class="stat-label">Projets livres</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-number">4</div>
+                            <div class="stat-number">5</div>
                             <div class="stat-label">Domaines</div>
                         </div>
                         <div class="stat-item">
@@ -618,11 +641,11 @@
                     j'ecris a pour objectif de creer un impact positif et mesurable.
                 </p>
                 <div class="about-tags">
-                    <span class="about-tag">Data Science</span>
-                    <span class="about-tag">Machine Learning</span>
-                    <span class="about-tag">Web Development</span>
-                    <span class="about-tag">FinTech</span>
-                    <span class="about-tag">Impact Social</span>
+                    <span class="chip chip--tint">Data Science</span>
+                    <span class="chip chip--tint">Machine Learning</span>
+                    <span class="chip chip--tint">Web Development</span>
+                    <span class="chip chip--tint">FinTech</span>
+                    <span class="chip chip--tint">Impact Social</span>
                 </div>
             </div>
         </div>
@@ -636,73 +659,71 @@
             <p class="section-subtitle">Des outils et technologies que je maitrise pour construire des solutions completes.</p>
         </div>
         <div class="skills-grid">
-            <div class="skill-category reveal">
-                <div class="skill-icon purple">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            <div class="card card--interactive skill-category reveal">
+                <div class="icon-box icon-box--blue">
+                    <svg class="icon icon--md" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
                 </div>
                 <h3>Backend</h3>
                 <div class="skill-list">
-                    <span class="skill-chip">Python</span>
-                    <span class="skill-chip">Django</span>
-                    <span class="skill-chip">Django REST</span>
-                    <span class="skill-chip">PostgreSQL</span>
-                    <span class="skill-chip">SQL</span>
-                    <span class="skill-chip">REST API</span>
+                    <span class="chip chip--outline">Python</span>
+                    <span class="chip chip--outline">Django</span>
+                    <span class="chip chip--outline">Django REST</span>
+                    <span class="chip chip--outline">PostgreSQL</span>
+                    <span class="chip chip--outline">PHP</span>
+                    <span class="chip chip--outline">MySQL</span>
                 </div>
             </div>
-            <div class="skill-category reveal">
-                <div class="skill-icon pink">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fb7185" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            <div class="card card--interactive skill-category reveal">
+                <div class="icon-box icon-box--rose">
+                    <svg class="icon icon--md" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
                 </div>
                 <h3>Frontend</h3>
                 <div class="skill-list">
-                    <span class="skill-chip">HTML5</span>
-                    <span class="skill-chip">CSS3</span>
-                    <span class="skill-chip">JavaScript</span>
-                    <span class="skill-chip">React</span>
-                    <span class="skill-chip">Bootstrap</span>
-                    <span class="skill-chip">Responsive</span>
+                    <span class="chip chip--outline">HTML5</span>
+                    <span class="chip chip--outline">CSS3</span>
+                    <span class="chip chip--outline">JavaScript</span>
+                    <span class="chip chip--outline">Bootstrap</span>
+                    <span class="chip chip--outline">Responsive</span>
                 </div>
             </div>
-            <div class="skill-category reveal">
-                <div class="skill-icon cyan">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+            <div class="card card--interactive skill-category reveal">
+                <div class="icon-box icon-box--cyan">
+                    <svg class="icon icon--md" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
                 </div>
                 <h3>Data Science & IA</h3>
                 <div class="skill-list">
-                    <span class="skill-chip">Pandas</span>
-                    <span class="skill-chip">NumPy</span>
-                    <span class="skill-chip">Scikit-learn</span>
-                    <span class="skill-chip">Matplotlib</span>
-                    <span class="skill-chip">Jupyter</span>
-                    <span class="skill-chip">ML</span>
+                    <span class="chip chip--outline">Pandas</span>
+                    <span class="chip chip--outline">NumPy</span>
+                    <span class="chip chip--outline">Scikit-learn</span>
+                    <span class="chip chip--outline">Matplotlib</span>
+                    <span class="chip chip--outline">Jupyter</span>
                 </div>
             </div>
-            <div class="skill-category reveal">
-                <div class="skill-icon lime">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a3e635" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <div class="card card--interactive skill-category reveal">
+                <div class="icon-box icon-box--green">
+                    <svg class="icon icon--md" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                 </div>
                 <h3>DevOps & Outils</h3>
                 <div class="skill-list">
-                    <span class="skill-chip">Git</span>
-                    <span class="skill-chip">GitHub</span>
-                    <span class="skill-chip">Vercel</span>
-                    <span class="skill-chip">Supabase</span>
-                    <span class="skill-chip">Linux</span>
-                    <span class="skill-chip">VS Code</span>
+                    <span class="chip chip--outline">Git</span>
+                    <span class="chip chip--outline">GitHub</span>
+                    <span class="chip chip--outline">Vercel</span>
+                    <span class="chip chip--outline">Supabase</span>
+                    <span class="chip chip--outline">WAMP</span>
+                    <span class="chip chip--outline">VS Code</span>
                 </div>
             </div>
-            <div class="skill-category reveal">
-                <div class="skill-icon orange">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fb923c" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <div class="card card--interactive skill-category reveal">
+                <div class="icon-box icon-box--orange">
+                    <svg class="icon icon--md" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                 </div>
                 <h3>Methodologies</h3>
                 <div class="skill-list">
-                    <span class="skill-chip">Agile</span>
-                    <span class="skill-chip">Analyse de donnees</span>
-                    <span class="skill-chip">Conception BD</span>
-                    <span class="skill-chip">UML</span>
-                    <span class="skill-chip">MVC</span>
+                    <span class="chip chip--outline">Agile</span>
+                    <span class="chip chip--outline">Analyse de donnees</span>
+                    <span class="chip chip--outline">Conception BD</span>
+                    <span class="chip chip--outline">UML</span>
+                    <span class="chip chip--outline">MVC</span>
                 </div>
             </div>
         </div>
@@ -718,118 +739,149 @@
         <div class="projects-grid">
 
             <!-- SignalVBG -->
-            <div class="project-card reveal">
+            <div class="card card--interactive project-card reveal">
                 <div>
                     <div class="project-number">01</div>
                     <h3>Signal VBG</h3>
                     <div class="tagline">Signalement des violences basees sur le genre</div>
                     <p>Plateforme numerique de signalement anonyme et confidentiel des VBG, avec systeme de suivi par code, carte des centres d'ecoute, FAQ interactive et dashboard administrateur.</p>
                     <div class="project-stack">
-                        <span>Django</span>
-                        <span>PostgreSQL</span>
-                        <span>Vercel</span>
-                        <span>Geolocation API</span>
-                        <span>Supabase</span>
+                        <span class="chip chip--tint">Django</span>
+                        <span class="chip chip--tint">PostgreSQL</span>
+                        <span class="chip chip--tint">Vercel</span>
+                        <span class="chip chip--tint">Geolocation API</span>
+                        <span class="chip chip--tint">Supabase</span>
                     </div>
                     <div class="project-links">
-                        <a href="https://signal-vbg.vercel.app" target="_blank" class="link-primary">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        <a href="https://signal-vbg.vercel.app" target="_blank" class="btn btn--primary btn--sm">
+                            <svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                             Voir en ligne
                         </a>
-                        <a href="https://github.com/Isaac-code-ux643/signal-vbg" target="_blank" class="link-secondary">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+                        <a href="https://github.com/Isaac-code-ux643/signal-vbg" target="_blank" class="btn btn--outline btn--sm">
+                            <svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
                             Code source
                         </a>
                     </div>
                 </div>
-                <div class="project-preview">
-                    <div class="preview-dots"><span></span><span></span><span></span></div>
-                    <div class="preview-url">signal-vbg.vercel.app</div>
-                    <div class="preview-content">
-                        <div class="preview-logo" style="background: linear-gradient(135deg, #f43f5e, #fb923c); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Signal VBG</div>
-                        <div class="preview-tagline">Signalez. Suivez. Protegez.</div>
+                <div class="window">
+                    <div class="window__bar"><span class="window__dot window__dot--red"></span><span class="window__dot window__dot--amber"></span><span class="window__dot window__dot--green"></span></div>
+                    <div class="window__url">signal-vbg.vercel.app</div>
+                    <div class="window__content">
+                        <div class="window__logo" style="color: var(--accent);">Signal VBG</div>
+                        <div class="window__tagline">Signalez. Suivez. Protegez.</div>
                     </div>
-                    <div class="preview-lines">
-                        <div class="preview-line" style="background: #f43f5e;"></div>
-                        <div class="preview-line" style="background: #fb923c;"></div>
-                        <div class="preview-line" style="background: #f43f5e;"></div>
+                    <div class="window__lines">
+                        <div class="window__line" style="background: var(--accent);"></div>
+                        <div class="window__line" style="background: var(--warning);"></div>
+                        <div class="window__line" style="background: var(--accent);"></div>
                     </div>
                 </div>
             </div>
 
             <!-- Plateforme Immobiliere -->
-            <div class="project-card reveal">
+            <div class="card card--interactive project-card reveal">
                 <div>
                     <div class="project-number">02</div>
                     <h3>Plateforme Immobiliere</h3>
                     <div class="tagline">Gestion intelligente du patrimoine immobilier</div>
                     <p>Solution numerique complete pour gerer les biens immobiliers, les proprietes, les locataires, les contrats, les paiements et le suivi administratif des locations.</p>
                     <div class="project-stack">
-                        <span>Django</span>
-                        <span>Python</span>
-                        <span>PostgreSQL</span>
-                        <span>Bootstrap</span>
-                        <span>CRUD</span>
+                        <span class="chip chip--tint">Django</span>
+                        <span class="chip chip--tint">Python</span>
+                        <span class="chip chip--tint">PostgreSQL</span>
+                        <span class="chip chip--tint">Bootstrap</span>
+                        <span class="chip chip--tint">CRUD</span>
                     </div>
                     <div class="project-links">
-                        <a href="https://github.com/Isaac-code-ux643" target="_blank" class="link-secondary">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+                        <a href="https://github.com/Isaac-code-ux643" target="_blank" class="btn btn--outline btn--sm">
+                            <svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
                             Code source
                         </a>
                     </div>
                 </div>
-                <div class="project-preview">
-                    <div class="preview-dots"><span></span><span></span><span></span></div>
-                    <div class="preview-url">gestion-immobiliere</div>
-                    <div class="preview-content">
-                        <div class="preview-logo" style="background: linear-gradient(135deg, #22d3ee, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">ImmoPro</div>
-                        <div class="preview-tagline">Gerer. Louer. Optimiser.</div>
+                <div class="window">
+                    <div class="window__bar"><span class="window__dot window__dot--red"></span><span class="window__dot window__dot--amber"></span><span class="window__dot window__dot--green"></span></div>
+                    <div class="window__url">gestion-immobiliere</div>
+                    <div class="window__content">
+                        <div class="window__logo" style="color: var(--cyan);">ImmoPro</div>
+                        <div class="window__tagline">Gerer. Louer. Optimiser.</div>
                     </div>
-                    <div class="preview-lines">
-                        <div class="preview-line" style="background: #22d3ee;"></div>
-                        <div class="preview-line" style="background: #8b5cf6;"></div>
-                        <div class="preview-line" style="background: #22d3ee;"></div>
+                    <div class="window__lines">
+                        <div class="window__line" style="background: var(--cyan);"></div>
+                        <div class="window__line" style="background: #8b5cf6;"></div>
+                        <div class="window__line" style="background: var(--cyan);"></div>
                     </div>
                 </div>
             </div>
 
             <!-- BankPro -->
-            <div class="project-card reveal">
+            <div class="card card--interactive project-card reveal">
                 <div>
                     <div class="project-number">03</div>
                     <h3>BankPro</h3>
                     <div class="tagline">Solutions FinTech pour le secteur bancaire</div>
                     <p>Solution numerique orientee vers le secteur bancaire et financier, concue pour faciliter la gestion des clients, des operations et des services financiers.</p>
                     <div class="project-stack">
-                        <span>PHP</span>
-                        <span>MySQL</span>
-                        <span>WAMP</span>
-                        <span>FinTech</span>
-                        <span>PDO</span>
-                        <span>Bootstrap</span>
+                        <span class="chip chip--tint">PHP</span>
+                        <span class="chip chip--tint">MySQL</span>
+                        <span class="chip chip--tint">WAMP</span>
+                        <span class="chip chip--tint">FinTech</span>
+                        <span class="chip chip--tint">PDO</span>
                     </div>
                     <div class="project-links">
-                        <a href="http://127.0.0.1/BankPro/" target="_blank" class="link-primary">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                            Voir en ligne
-                        </a>
-                        <a href="https://github.com/Isaac-code-ux643" target="_blank" class="link-secondary">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+                        <a href="https://github.com/Isaac-code-ux643" target="_blank" class="btn btn--outline btn--sm">
+                            <svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
                             Code source
                         </a>
                     </div>
                 </div>
-                <div class="project-preview">
-                    <div class="preview-dots"><span></span><span></span><span></span></div>
-                    <div class="preview-url">127.0.0.1/BankPro</div>
-                    <div class="preview-content">
-                        <div class="preview-logo" style="background: linear-gradient(135deg, #a3e635, #22d3ee); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">BankPro</div>
-                        <div class="preview-tagline">Finance. Innovation. Securite.</div>
+                <div class="window">
+                    <div class="window__bar"><span class="window__dot window__dot--red"></span><span class="window__dot window__dot--amber"></span><span class="window__dot window__dot--green"></span></div>
+                    <div class="window__url">bankpro-app</div>
+                    <div class="window__content">
+                        <div class="window__logo" style="color: var(--success);">BankPro</div>
+                        <div class="window__tagline">Finance. Innovation. Securite.</div>
                     </div>
-                    <div class="preview-lines">
-                        <div class="preview-line" style="background: #a3e635;"></div>
-                        <div class="preview-line" style="background: #22d3ee;"></div>
-                        <div class="preview-line" style="background: #a3e635;"></div>
+                    <div class="window__lines">
+                        <div class="window__line" style="background: var(--success);"></div>
+                        <div class="window__line" style="background: var(--cyan);"></div>
+                        <div class="window__line" style="background: var(--success);"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dataview -->
+            <div class="card card--interactive project-card reveal">
+                <div>
+                    <div class="project-number">04</div>
+                    <h3>Dataview</h3>
+                    <div class="tagline">Analyseur Excel intelligent</div>
+                    <p>Plateforme d'analyse automatique de fichiers Excel avec detection d'erreurs, nettoyage de donnees, generation de graphiques, detection de tendances et OCR pour convertir des images de tableaux en fichiers modifiables. Mode freemium (3 essais gratuits).</p>
+                    <div class="project-stack">
+                        <span class="chip chip--tint">Python</span>
+                        <span class="chip chip--tint">Streamlit</span>
+                        <span class="chip chip--tint">Pandas</span>
+                        <span class="chip chip--tint">Plotly</span>
+                        <span class="chip chip--tint">Tesseract OCR</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/Isaac-code-ux643/dataview" target="_blank" class="btn btn--outline btn--sm">
+                            <svg class="icon icon--sm" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+                            Code source
+                        </a>
+                    </div>
+                </div>
+                <div class="window">
+                    <div class="window__bar"><span class="window__dot window__dot--red"></span><span class="window__dot window__dot--amber"></span><span class="window__dot window__dot--green"></span></div>
+                    <div class="window__url">github.com/Isaac-code-ux643/dataview</div>
+                    <div class="window__content">
+                        <div class="window__logo" style="color: #0078D4;">Dataview</div>
+                        <div class="window__tagline">Analysez. Nettoyez. Visualisez.</div>
+                    </div>
+                    <div class="window__lines">
+                        <div class="window__line" style="background: #0078D4;"></div>
+                        <div class="window__line" style="background: #00A4EF;"></div>
+                        <div class="window__line" style="background: #107C10;"></div>
                     </div>
                 </div>
             </div>
@@ -837,7 +889,7 @@
         </div>
     </section>
 
-    <!-- DOMAINS -->
+    <!-- DOMAINES -->
     <section id="domains">
         <div class="section-header reveal">
             <div class="section-tag">Domaines</div>
@@ -845,23 +897,31 @@
             <p class="section-subtitle">Les domaines dans lesquels je cree de la valeur.</p>
         </div>
         <div class="domains-grid">
-            <div class="domain-card reveal">
-                <div class="domain-emoji">🛡️</div>
+            <div class="card card--interactive domain-card reveal">
+                <div class="icon-box icon-box--lg icon-box--rose">
+                    <svg class="icon icon--md" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
                 <h3>Impact social & Innovation</h3>
                 <p>Sante sexuelle et reproductive, lutte contre les VBG, solutions accessibles a tous.</p>
             </div>
-            <div class="domain-card reveal">
-                <div class="domain-emoji">📊</div>
+            <div class="card card--interactive domain-card reveal">
+                <div class="icon-box icon-box--lg icon-box--cyan">
+                    <svg class="icon icon--md" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                </div>
                 <h3>Data Science & IA</h3>
-                <p>Analyse de donnees, Machine Learning, RFM, extraction et visualisation.</p>
+                <p>Analyse de donnees, Machine Learning, RFM, extraction, visualisation et outils d'aide a la decision.</p>
             </div>
-            <div class="domain-card reveal">
-                <div class="domain-emoji">💻</div>
+            <div class="card card--interactive domain-card reveal">
+                <div class="icon-box icon-box--lg icon-box--blue">
+                    <svg class="icon icon--md" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                </div>
                 <h3>Applications Web</h3>
                 <p>Plateformes completes, solutions metier, applications interactives et modernes.</p>
             </div>
-            <div class="domain-card reveal">
-                <div class="domain-emoji">🏦</div>
+            <div class="card card--interactive domain-card reveal">
+                <div class="icon-box icon-box--lg icon-box--green">
+                    <svg class="icon icon--md" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><polygon points="12 2 20 7 4 7"/></svg>
+                </div>
                 <h3>FinTech</h3>
                 <p>Solutions financieres, gestion bancaire, systemes de paiement et analytics.</p>
             </div>
@@ -870,20 +930,20 @@
 
     <!-- CONTACT -->
     <section id="contact" class="contact-section">
-        <div class="contact-box reveal">
+        <div class="card card--accent contact-box reveal">
             <h2>Travaillons ensemble</h2>
             <p>Une idee de projet ? Une collaboration ? N'hesitez pas a me contacter.</p>
             <div class="contact-links">
                 <a href="mailto:kindodih@gmail.com" class="contact-link">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    <svg class="icon icon--md" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 6L2 7"/></svg>
                     kindodih@gmail.com
                 </a>
                 <a href="https://github.com/Isaac-code-ux643" target="_blank" class="contact-link">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+                    <svg class="icon icon--md" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
                     Isaac-code-ux643
                 </a>
                 <a href="https://signal-vbg.vercel.app" target="_blank" class="contact-link">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+                    <svg class="icon icon--md" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
                     signal-vbg.vercel.app
                 </a>
             </div>
@@ -892,7 +952,9 @@
 
     <!-- FOOTER -->
     <footer>
-        <p>Construit avec <span class="heart">❤</span> au Burkina Faso — 2026</p>
+        <p>Construit avec <span class="heart">
+            <svg class="icon icon--sm" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </span> au Burkina Faso — 2026</p>
     </footer>
 
     <!-- SCRIPTS -->
@@ -919,6 +981,7 @@
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
+                document.getElementById('navLinks').classList.remove('open');
             });
         });
     </script>
