@@ -34,12 +34,12 @@
             --border-light: #f1f5f9;
 
             /* --- Teintes d'icones (surfaces plates) --- */
-            --tint-blue: rgba(29, 78, 216, 0.08);
-            --tint-rose: rgba(244, 63, 94, 0.08);
-            --tint-cyan: rgba(6, 182, 212, 0.08);
-            --tint-green: rgba(34, 197, 94, 0.08);
-            --tint-orange: rgba(249, 115, 22, 0.08);
-            --tint-primary: rgba(29, 78, 216, 0.06);
+            --tint-blue: rgba(29, 78, 216, 0.12);
+            --tint-rose: rgba(244, 63, 94, 0.12);
+            --tint-cyan: rgba(6, 182, 212, 0.12);
+            --tint-green: rgba(34, 197, 94, 0.12);
+            --tint-orange: rgba(249, 115, 22, 0.12);
+            --tint-primary: rgba(29, 78, 216, 0.08);
 
             /* --- Typographie --- */
             --font-sans: 'Inter', -apple-system, sans-serif;
@@ -74,6 +74,10 @@
             --gradient-1: linear-gradient(135deg, var(--primary), var(--primary-light));
             --gradient-2: linear-gradient(135deg, var(--primary), var(--cyan));
             --gradient-3: linear-gradient(135deg, var(--primary-dark), var(--primary), var(--primary-light));
+            --gradient-rose: linear-gradient(135deg, #f43f5e, #fb7185);
+            --gradient-cyan: linear-gradient(135deg, #06b6d4, #22d3ee);
+            --gradient-green: linear-gradient(135deg, #16a34a, #4ade80);
+            --gradient-blue: linear-gradient(135deg, #0078d4, #00a4ef);
 
             /* --- Conteneur --- */
             --container: 1100px;
@@ -229,7 +233,7 @@
 
         .hero h1 {
             font-size: clamp(2.5rem, 5.5vw, 4.2rem); font-weight: 900;
-            line-height: 1.1; letter-spacing: -2px; margin-bottom: var(--space-5);
+            line-height: 1.15; letter-spacing: -1.5px; margin-bottom: var(--space-5);
             animation: fadeInUp 0.8s ease 0.1s forwards; opacity: 0;
         }
 
@@ -448,35 +452,52 @@
         .project-links { display: flex; gap: 0.8rem; flex-wrap: wrap; }
 
         .window {
-            background: var(--dark); border: 1px solid #334155;
-            border-radius: var(--radius-md); padding: var(--space-5); min-height: 200px;
-            display: flex; flex-direction: column; justify-content: center;
-            align-items: center; position: relative;
+            background: var(--bg); border: 1px solid var(--border);
+            border-radius: var(--radius-lg); min-height: 220px;
+            display: flex; flex-direction: column; overflow: hidden;
+            box-shadow: var(--shadow-2);
         }
 
-        .window__bar { display: flex; gap: 6px; position: absolute; top: 12px; left: 14px; }
+        .window__bar {
+            display: flex; align-items: center; gap: 6px;
+            padding: 10px 14px;
+            background: var(--border-light); border-bottom: 1px solid var(--border);
+        }
+
         .window__dot { width: 8px; height: 8px; border-radius: 50%; }
         .window__dot--red { background: #ef4444; }
         .window__dot--amber { background: #eab308; }
         .window__dot--green { background: var(--success); }
 
         .window__url {
-            font-family: var(--font-mono); font-size: 0.7rem;
-            color: var(--text-dim); margin-bottom: var(--space-5);
+            margin-left: 10px;
+            font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-dim);
         }
 
-        .window__content { text-align: center; }
+        .window__body {
+            flex: 1; display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            padding: var(--space-5); text-align: center;
+        }
 
-        .window__logo { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .window__logo {
+            width: 60px; height: 60px; border-radius: var(--radius-lg);
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-weight: 800; font-size: 1.1rem;
+            margin-bottom: var(--space-4);
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.18);
+        }
+
+        .window__name { font-size: 1.05rem; font-weight: 800; color: var(--dark); margin-bottom: 0.25rem; }
 
         .window__tagline { font-size: 0.8rem; color: var(--text-dim); }
 
-        .window__lines { margin-top: var(--space-5); width: 100%; }
+        .window__lines { margin-top: var(--space-5); width: 100%; max-width: 220px; }
 
-        .window__line { height: 6px; border-radius: 3px; margin-bottom: 6px; opacity: 0.4; }
-        .window__line:nth-child(1) { width: 80%; background: var(--primary); }
-        .window__line:nth-child(2) { width: 60%; background: var(--accent); }
-        .window__line:nth-child(3) { width: 70%; background: var(--cyan); }
+        .window__line { height: 6px; border-radius: 3px; margin-bottom: 6px; opacity: 0.35; }
+        .window__line:nth-child(1) { width: 80%; }
+        .window__line:nth-child(2) { width: 60%; }
+        .window__line:nth-child(3) { width: 70%; }
 
         /* ============================================================
            DOMAINES
@@ -589,10 +610,10 @@
                 Disponible pour de nouveaux projets
             </div>
             <h1>
+                Bonjour, je suis
                 <span class="name">KINDO Dary Isaac Hussein</span>
-                Ingenieur Informatique
             </h1>
-            <p>Specialise dans le developpement web, la data science et les solutions numeriques a impact social au Burkina Faso.</p>
+            <p>Ingenieur informatique base au Burkina Faso : je developpe des applications web, j'analyse des donnees et je construis des solutions numeriques a impact social.</p>
             <div class="hero-buttons">
                 <a href="#projects" class="btn btn--primary">Voir mes projets</a>
                 <a href="#contact" class="btn btn--outline">Me contacter</a>
@@ -764,16 +785,21 @@
                     </div>
                 </div>
                 <div class="window">
-                    <div class="window__bar"><span class="window__dot window__dot--red"></span><span class="window__dot window__dot--amber"></span><span class="window__dot window__dot--green"></span></div>
-                    <div class="window__url">signal-vbg.vercel.app</div>
-                    <div class="window__content">
-                        <div class="window__logo" style="color: var(--accent);">Signal VBG</div>
-                        <div class="window__tagline">Signalez. Suivez. Protegez.</div>
+                    <div class="window__bar">
+                        <span class="window__dot window__dot--red"></span>
+                        <span class="window__dot window__dot--amber"></span>
+                        <span class="window__dot window__dot--green"></span>
+                        <span class="window__url">signal-vbg.vercel.app</span>
                     </div>
-                    <div class="window__lines">
-                        <div class="window__line" style="background: var(--accent);"></div>
-                        <div class="window__line" style="background: var(--warning);"></div>
-                        <div class="window__line" style="background: var(--accent);"></div>
+                    <div class="window__body">
+                        <div class="window__logo" style="background: var(--gradient-rose);">SV</div>
+                        <div class="window__name" style="color: var(--accent);">Signal VBG</div>
+                        <div class="window__tagline">Signalez. Suivez. Protegez.</div>
+                        <div class="window__lines">
+                            <div class="window__line" style="background: var(--accent);"></div>
+                            <div class="window__line" style="background: var(--warning);"></div>
+                            <div class="window__line" style="background: var(--accent);"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -800,16 +826,21 @@
                     </div>
                 </div>
                 <div class="window">
-                    <div class="window__bar"><span class="window__dot window__dot--red"></span><span class="window__dot window__dot--amber"></span><span class="window__dot window__dot--green"></span></div>
-                    <div class="window__url">gestion-immobiliere</div>
-                    <div class="window__content">
-                        <div class="window__logo" style="color: var(--cyan);">ImmoPro</div>
-                        <div class="window__tagline">Gerer. Louer. Optimiser.</div>
+                    <div class="window__bar">
+                        <span class="window__dot window__dot--red"></span>
+                        <span class="window__dot window__dot--amber"></span>
+                        <span class="window__dot window__dot--green"></span>
+                        <span class="window__url">gestion-immobiliere</span>
                     </div>
-                    <div class="window__lines">
-                        <div class="window__line" style="background: var(--cyan);"></div>
-                        <div class="window__line" style="background: #8b5cf6;"></div>
-                        <div class="window__line" style="background: var(--cyan);"></div>
+                    <div class="window__body">
+                        <div class="window__logo" style="background: var(--gradient-cyan);">IP</div>
+                        <div class="window__name" style="color: var(--cyan);">ImmoPro</div>
+                        <div class="window__tagline">Gerer. Louer. Optimiser.</div>
+                        <div class="window__lines">
+                            <div class="window__line" style="background: var(--cyan);"></div>
+                            <div class="window__line" style="background: #8b5cf6;"></div>
+                            <div class="window__line" style="background: var(--cyan);"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -836,16 +867,21 @@
                     </div>
                 </div>
                 <div class="window">
-                    <div class="window__bar"><span class="window__dot window__dot--red"></span><span class="window__dot window__dot--amber"></span><span class="window__dot window__dot--green"></span></div>
-                    <div class="window__url">bankpro-app</div>
-                    <div class="window__content">
-                        <div class="window__logo" style="color: var(--success);">BankPro</div>
-                        <div class="window__tagline">Finance. Innovation. Securite.</div>
+                    <div class="window__bar">
+                        <span class="window__dot window__dot--red"></span>
+                        <span class="window__dot window__dot--amber"></span>
+                        <span class="window__dot window__dot--green"></span>
+                        <span class="window__url">bankpro-app</span>
                     </div>
-                    <div class="window__lines">
-                        <div class="window__line" style="background: var(--success);"></div>
-                        <div class="window__line" style="background: var(--cyan);"></div>
-                        <div class="window__line" style="background: var(--success);"></div>
+                    <div class="window__body">
+                        <div class="window__logo" style="background: var(--gradient-green);">BP</div>
+                        <div class="window__name" style="color: var(--success);">BankPro</div>
+                        <div class="window__tagline">Finance. Innovation. Securite.</div>
+                        <div class="window__lines">
+                            <div class="window__line" style="background: var(--success);"></div>
+                            <div class="window__line" style="background: var(--cyan);"></div>
+                            <div class="window__line" style="background: var(--success);"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -872,16 +908,21 @@
                     </div>
                 </div>
                 <div class="window">
-                    <div class="window__bar"><span class="window__dot window__dot--red"></span><span class="window__dot window__dot--amber"></span><span class="window__dot window__dot--green"></span></div>
-                    <div class="window__url">github.com/Isaac-code-ux643/dataview</div>
-                    <div class="window__content">
-                        <div class="window__logo" style="color: #0078D4;">Dataview</div>
-                        <div class="window__tagline">Analysez. Nettoyez. Visualisez.</div>
+                    <div class="window__bar">
+                        <span class="window__dot window__dot--red"></span>
+                        <span class="window__dot window__dot--amber"></span>
+                        <span class="window__dot window__dot--green"></span>
+                        <span class="window__url">github.com/Isaac-code-ux643/dataview</span>
                     </div>
-                    <div class="window__lines">
-                        <div class="window__line" style="background: #0078D4;"></div>
-                        <div class="window__line" style="background: #00A4EF;"></div>
-                        <div class="window__line" style="background: #107C10;"></div>
+                    <div class="window__body">
+                        <div class="window__logo" style="background: var(--gradient-blue);">DV</div>
+                        <div class="window__name" style="color: #0078D4;">Dataview</div>
+                        <div class="window__tagline">Analysez. Nettoyez. Visualisez.</div>
+                        <div class="window__lines">
+                            <div class="window__line" style="background: #0078D4;"></div>
+                            <div class="window__line" style="background: #00A4EF;"></div>
+                            <div class="window__line" style="background: #107C10;"></div>
+                        </div>
                     </div>
                 </div>
             </div>
